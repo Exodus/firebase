@@ -1,7 +1,8 @@
 name: Docker builder
 on:
   push:
-  schedule: 0 0 * * *
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   docker_build:
