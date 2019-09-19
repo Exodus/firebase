@@ -1,0 +1,19 @@
+name: Docker builder
+on:
+  - push
+  - schedule: 0 0 * * *
+
+jobs:
+  docker_build:
+    name: Docker builder
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Docker build
+        run: docker build -t $GITHUB_REPOSITORY .
+      - name: Docker login
+        env:
+          DOCKER_USERNAME: $DOCKER_USERNAME
+          DOCKER_PASSWORD: $DOCKER_PASSWORD
+        run: docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+      - name: Docker push
+        run: docker push $GITHUB_REPOSITORY
